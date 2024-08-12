@@ -1,10 +1,12 @@
 package goconf
 
 import (
+	"context"
 	"os"
 
 	"github.com/olekukonko/tablewriter"
 	"github.com/tlmanz/hush"
+	"github.com/tryfix/log"
 )
 
 type Configer interface {
@@ -48,10 +50,18 @@ func printTable(p Printer) {
 	pr := p.Print()
 
 	// Create a HushType instance
-	data := hush.NewHushType(pr)
+	husher, err := hush.NewHushType(pr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	result, err := husher.Hush(context.Background(), "")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	table.SetHeader([]string{"Config", "Value"})
-	table.AppendBulk(data.Hush(""))
+	table.AppendBulk(result)
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 
 	table.Render()
