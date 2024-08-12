@@ -2,14 +2,27 @@ package main
 
 import (
 	"errors"
-	"github.com/caarlos0/env/v6"
-	"github.com/tryfix/log"
-	"github.com/wgarunap/goconf"
 	"os"
+
+	"github.com/caarlos0/env/v6"
+	"github.com/tlmanz/goconf"
+	"github.com/tryfix/log"
 )
 
 type Conf struct {
-	Name string `env:"MY_NAME"`
+	Name  string `env:"MY_NAME"`
+	OAuth OAuth
+}
+
+type OAuth struct {
+	ClientID     string `env:"CLIENT_ID" envDefault:"1234567890" hush:"mask"`
+	ClientSecret string `env:"CLIENT_SECRET" envDefault:"1234567890" hush:"hide"`
+	OAuthConfig  OAuthConfig
+}
+
+type OAuthConfig struct {
+	ClientID     int64 `env:"CLIENT_ID" envDefault:"1234567890" hush:"hide"`
+	ClientSecret int64 `env:"CLIENT_SECRET" envDefault:"1234567890" hush:"mask"`
 }
 
 var Config Conf

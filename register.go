@@ -1,20 +1,20 @@
 package goconf
 
 import (
-	"fmt"
 	"os"
 
-	"github.com/oleiade/reflections"
 	"github.com/olekukonko/tablewriter"
-	"github.com/tryfix/log"
+	"github.com/tlmanz/hush"
 )
 
 type Configer interface {
 	Register() error
 }
+
 type Validater interface {
 	Validate() error
 }
+
 type Printer interface {
 	Print() interface{}
 }
@@ -45,22 +45,13 @@ func Load(configs ...Configer) error {
 func printTable(p Printer) {
 	table := tablewriter.NewWriter(os.Stdout)
 
-	var data = [][]string{}
-
 	pr := p.Print()
-	var fields []string
-	fields, _ = reflections.Fields(pr)
 
-	for _, field := range fields {
-		value, err := reflections.GetField(pr, field)
-		if err != nil {
-			log.Error("error printing the goconf table", err)
-		}
-		data = append(data, []string{field, fmt.Sprint(value)})
-	}
+	// Create a HushType instance
+	data := hush.NewHushType(pr)
 
 	table.SetHeader([]string{"Config", "Value"})
-	table.AppendBulk(data)
+	table.AppendBulk(data.Hush(""))
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 
 	table.Render()
