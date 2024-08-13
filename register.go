@@ -50,7 +50,7 @@ func printTable(p Printer) {
 	pr := p.Print()
 
 	// Create a HushType instance
-	husher, err := hush.NewHushType(pr)
+	husher, err := hush.NewHush(pr)
 	if err != nil {
 		log.Fatal(err)
 	}

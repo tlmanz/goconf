@@ -5,7 +5,7 @@ go 1.21.7
 require (
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/tlmanz/hush v0.1.0
+	github.com/tlmanz/hush v0.2.0
 	github.com/tryfix/log v1.0.2
 )
 

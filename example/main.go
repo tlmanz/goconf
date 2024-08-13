@@ -15,14 +15,14 @@ type Conf struct {
 }
 
 type OAuth struct {
-	ClientID     string `env:"CLIENT_ID" envDefault:"1234567890" hush:"mask"`
-	ClientSecret string `env:"CLIENT_SECRET" envDefault:"1234567890" hush:"hide"`
-	OAuthConfig  OAuthConfig
+	Enabled     bool   `env:"OAUTH_ENABLED" envDefault:"False"`
+	JwtKey      string `env:"JWT_KEY" envDefault:"asdasd" hush:"mask"`
+	OAuthConfig OAuthConfig
 }
 
 type OAuthConfig struct {
-	ClientID     int64 `env:"CLIENT_ID" envDefault:"1234567890" hush:"hide"`
-	ClientSecret int64 `env:"CLIENT_SECRET" envDefault:"1234567890" hush:"mask"`
+	ClientID     string `env:"CLIENT_ID" envDefault:"234234234-23234kjh23jk4g2j3h4gjh23g4f.apps.googleusercontent.com" hush:"hide"`
+	ClientSecret string `env:"CLIENT_SECRET" envDefault:"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10U_" hush:"mask"`
 }
 
 var Config Conf
