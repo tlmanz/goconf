@@ -76,9 +76,8 @@ func printTable(out io.Writer, p Printer) error {
 		return fmt.Errorf("error hushing data: %w", err)
 	}
 
-	table.SetHeader([]string{"Config", "Value"})
-	table.AppendBulk(result)
-	table.SetAlignment(tablewriter.ALIGN_LEFT)
+	table.Header([]string{"Config", "Value"})
+	table.Bulk(result)
 
 	table.Render()
 	return nil
